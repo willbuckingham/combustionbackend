@@ -1,5 +1,5 @@
 <?php
-	require_once($_SERVER['DOCUMENT_ROOT'] . "/combustion/includes/config.inc");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/combustionbackend/includes/config.inc");
 	require_once(LOGIN_PATH . "/classes/Login.php");
 	
 	$login = new Login();
@@ -26,7 +26,7 @@
 		<form action="profile.php" method="post">
 			<label>User Name: <input type="text" name="user_name"></label>
 			<label>Password: <input type="password" name="user_password"></label><br/>
-			<input type="submit" name="submit" value="Submit" />
+			<input type="submit" name="login" value="Submit" />
 		</form>
 	</section>
 

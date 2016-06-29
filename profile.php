@@ -1,5 +1,5 @@
 <?php 
-	require_once($_SERVER['DOCUMENT_ROOT'] . "/combustion/includes/config.inc");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/combustionbackend/includes/config.inc");
 	require_once(LOGIN_PATH . "/classes/Login.php");
 	
 	$login = new Login();
@@ -13,10 +13,48 @@
 		exit;
 	}
 	
-	require($_SERVER['DOCUMENT_ROOT'] . "/combustion/includes/settings.class.inc");
+	require($_SERVER['DOCUMENT_ROOT'] . "/combustionbackend/includes/settings.class.inc");
 	
 	$settings = new Settings();
-	$data = $settings->getSettings(1);
+	$data = $settings->getSettings()[0];
+	
+	//convert base units to display units
+	switch($data['height_units']){
+		case "feet":
+			$height = $data['height'] / 12;
+			break;
+		case "inches":
+			$height = $data['height'] / 1;
+			break;
+		case "centimeters":
+			$height = $data['height'] * 2.54;
+			break;
+	}
+	
+	switch($data['weight_units']){
+		case "pounds":
+			$weight = $data['weight'] / 1;
+			break;
+		case "kilograms":
+			$weight = $data['weight'] / 2.20462;
+			break;
+	}
+	
+	switch($data['date_format']){
+		case "mm/dd/yy":
+			$dob = date("m/d/y", $data['dob']);
+			break;
+		case "mm/dd/yyyy":
+			$dob = date("m/d/Y", $data['dob']);
+			break;
+		case "dd/mm/yy":
+			$dob = date("d/m/y", $data['dob']);
+			break;
+		case "dd/mm/yyyy":
+			$dob = date("d/m/Y", $data['dob']);
+			break;
+		
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +69,11 @@
 	</header>
 	
 	<section>
-		Name: <?=$data['name'];?><br/>
-		Email: <?=$data['email'];?><br/>
-		Height: <?=$data['height'];?><br/>
-		Units: <?=data['units'];?><br/>
-		Weight: <?=$data['weight'];?><br/>
-		DOB: <?=$data['dob'];?>
-		Date Format: <?=$data['date_format'];?>
-		
+		Name: <?=$_SESSION['user_name'];?><br/>
+		Email: <?=$_SESSION['user_email']?><br/>
+		Height: <?=$height;?> <?=$data['height_units'];?><br/>
+		Weight: <?=$data['weight'];?> <?=$data['weight_units'];?><br/>
+		DOB: <?=$data['dob'];?> (<?=$data['date_format'];?>)<br/><br/>		
 		<a href="settings.php">Edit Settings</a>
 	</section>
 

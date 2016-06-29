@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/combustion/includes/config.inc");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/combustionbackend/includes/config.inc");
 
 // load the registration class
 require_once(LOGIN_PATH . "classes/Registration.php");
