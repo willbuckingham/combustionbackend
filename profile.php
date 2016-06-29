@@ -8,8 +8,8 @@
 		foreach ($login->errors as $error) {
             echo $error;
         }
-		echo "error not logged in";	
-		//header('Location: index.php');
+		//echo "error not logged in";	
+		header('Location: index.php');
 		exit;
 	}
 	
